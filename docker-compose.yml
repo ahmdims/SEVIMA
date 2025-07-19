@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  sevima:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    container_name: sevima-app
+    volumes:
+      - ./sevima:/var/www
+    depends_on:
+      - mysql
+    networks:
+      - laravel
+    ports:
+      - 8000:8000
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: sevima_app
+      DB_USERNAME: sevima_db
+      DB_PASSWORD: secret
+
+  mysql:
+    image: mysql:8.0
+    container_name: sevima-mysql
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: sevima_app
+      MYSQL_USER: sevima_db
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret 
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: sevima-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - laravel
+    depends_on:
+      - mysql
+
+networks:
+  laravel:
+
+volumes:
+  mysql_data:
