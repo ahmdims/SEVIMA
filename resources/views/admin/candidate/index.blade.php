@@ -63,50 +63,55 @@
                                 </thead>
 
                                 <tbody class="fw-semibold text-gray-600">
-                                    <tr>
-                                        <td class="text-center">1</td>
+                                    @foreach ($candidates as $index => $candidate)
+                                        <tr>
+                                            <td class="text-center">1</td>
 
-                                        <td class="text-start pe-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-50px">
-                                                    <span class="symbol-label"
-                                                        style="background-image: url()">
-                                                    </span>
-                                                </div>
-                                                <div class="ms-5">
-                                                    <div class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
-                                                        Udin
+                                            <td class="text-start pe-0">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="symbol symbol-50px">
+                                                        <span class="symbol-label" style="background-image: url()">
+                                                        </span>
+                                                    </div>
+                                                    <div class="ms-5">
+                                                        <div class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                                            {{ $candidate->name }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="text-start pe-0">
-                                            <span class="fw-bold">Visi Misi</span>
-                                        </td>
+                                            <td class="text-start pe-0">
+                                                <span class="fw-bold">
+                                                    {{ $candidate->description }}
+                                                </span>
+                                            </td>
 
-                                        <td class="text-end">
-                                            <a href="#"
-                                                class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                Action
-                                                <i class="ki-duotone ki-down fs-5 ms-1"></i>
-                                            </a>
+                                            <td class="text-end">
+                                                <a href="#"
+                                                    class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                    Action
+                                                    <i class="ki-duotone ki-down fs-5 ms-1"></i>
+                                                </a>
 
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link px-3" data-bs-toggle="modal"
-                                                        data-bs-target="#modal_edit-#" data-id="#">Edit</a>
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                                    data-kt-menu="true">
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link px-3" data-bs-toggle="modal"
+                                                            data-bs-target="#modal_edit-{{ $candidate->id }}"
+                                                            data-id="{{ $candidate->id }}">Edit</a>
+                                                    </div>
+
+                                                    <div class="menu-item px-3">
+                                                        <a class="menu-link px-3" data-bs-toggle="modal"
+                                                            data-bs-target="#modal_delete-{{ $candidate->id }}"
+                                                            data-id="{{ $candidate->id }}">Delete</a>
+                                                    </div>
                                                 </div>
-
-                                                <div class="menu-item px-3">
-                                                    <a class="menu-link px-3" data-bs-toggle="modal"
-                                                        data-bs-target="#modal_delete-#" data-id="#">Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -116,5 +121,12 @@
             </div>
         </div>
     </div>
+
+    @include('admin.candidate.create')
+
+    @foreach ($candidates as $candidate)
+        @include('admin.candidate.update', ['candidate_data' => $candidate])
+        @include('admin.candidate.delete', ['candidate_data' => $candidate])
+    @endforeach
 
 @endsection

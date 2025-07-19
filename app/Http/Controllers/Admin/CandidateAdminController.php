@@ -3,44 +3,36 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Event;
 use App\Models\Candidate;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class CandidateAdminController extends Controller
 {
     public function index()
     {
-        $events = Event::orderBy('created_at', 'desc')->get();
-        return view('admin.event.index', compact('events'));
+        $candidates = Candidate::orderBy('created_at', 'desc')->get();
+        return view('admin.candidate.index', compact('candidates'));
     }
 
     public function show($id)
     {
-        $event = event::findOrFail($id);
-        return response()->json($event);
+        $candidate = candidate::findOrFail($id);
+        return response()->json($candidate);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string',
+            'name' => 'required|string',
             'description' => 'required|string',
-            'start_time' => 'required|string',
-            'end_time' => 'required|string',
-            'status' => 1,
         ]);
 
-        event::create([
-            'title' => $request->title,
+        candidate::create([
+            'name' => $request->title,
             'description' => $request->description,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'status' => $request->status,
         ]);
 
-        return redirect()->back()->with('success', 'event created successfully!');
+        return redirect()->back()->with('success', 'candidate created successfully!');
     }
 
     public function update(Request $request, $id)
@@ -53,31 +45,23 @@ class CandidateAdminController extends Controller
             'status' => 'required|string',
         ]);
 
-        $event = event::findOrFail($id);
+        $candidate = candidate::findOrFail($id);
 
-        $event->name = $request->input('name', $event->name);
-        $event->description = $request->input('description', $event->description);
-        $event->start_time = $request->input('start_time', $event->start_time);
-        $event->end_time = $request->input('end_time', $event->end_time);
-        $event->status = $request->input('status', $event->status);
-        $event->save();
+        $candidate->name = $request->input('name', $candidate->name);
+        $candidate->description = $request->input('description', $candidate->description);
+        $candidate->start_time = $request->input('start_time', $candidate->start_time);
+        $candidate->end_time = $request->input('end_time', $candidate->end_time);
+        $candidate->status = $request->input('status', $candidate->status);
+        $candidate->save();
 
-        return redirect()->back()->with('success', 'event updated successfully!');
-    }
-
-    public function setup($id)
-    {
-        $event = Event::where('id', $id)->firstOrFail();
-        $candidates = $event->candidates;
-
-        return view('admin.event.setup', compact('events', 'candidates'));
+        return redirect()->back()->with('success', 'candidate updated successfully!');
     }
 
     public function destroy($id)
     {
-        $event = event::findOrFail($id);
-        $event->delete();
+        $candidate = candidate::findOrFail($id);
+        $candidate->delete();
 
-        return redirect()->back()->with('success', 'event deleted successfully!');
+        return redirect()->back()->with('success', 'candidate deleted successfully!');
     }
 }

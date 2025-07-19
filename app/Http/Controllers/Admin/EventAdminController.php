@@ -67,10 +67,9 @@ class EventAdminController extends Controller
 
     public function setup($id)
     {
-        // $event = Event::where('id', $id)->firstOrFail();
-        // $candidates = $event->candidat;
-
-        return view('admin.candidate.index');
+        $event = Event::where('id', $id)->firstOrFail();
+        $candidates = $event->candidates;
+        return view('admin.candidate.index', compact('event', 'candidates'));
     }
 
     public function destroy($id)

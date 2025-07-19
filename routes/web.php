@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CandidateAdminController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\EventAdminController;
 use App\Http\Controllers\App\CandidateAppController;
@@ -34,8 +35,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/event', [EventAdminController::class, 'store'])->name('admin.event.store');
     Route::get('/admin/event/{id}', [EventAdminController::class, 'show'])->name('admin.event.show');
     Route::put('/admin/event/{id}', [EventAdminController::class, 'update'])->name('admin.event.update');
-    Route::get('/admin/event/{id}/setup', [EventAdminController::class, 'setup'])->name('admin.event.setup');
     Route::delete('/admin/event/{id}', [EventAdminController::class, 'destroy'])->name('admin.event.destroy');
+
+    Route::get('/admin/event/{id}/setup', [EventAdminController::class, 'setup'])->name('admin.event.setup');
+    Route::post('/admin/candidate', [CandidateAdminController::class, 'store'])->name('admin.candidate.store');
+    Route::get('/admin/candidate/{id}', [CandidateAdminController::class, 'show'])->name('admin.candidate.show');
+    Route::put('/admin/candidate/{id}', [CandidateAdminController::class, 'update'])->name('admin.candidate.update');
+    Route::get('/admin/candidate/{id}/setup', [CandidateAdminController::class, 'setup'])->name('admin.candidate.setup');
+    Route::delete('/admin/candidate/{id}', [CandidateAdminController::class, 'destroy'])->name('admin.candidate.destroy');
 });
 
 Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -23,8 +23,8 @@ class Event extends Model
         'id',
     ];
 
-    // public function assets(): HasMany
-    // {
-    //     return $this->hasMany(Asset::class, 'events_id');
-    // }
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class);
+    }
 }
