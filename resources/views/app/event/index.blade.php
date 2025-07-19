@@ -12,28 +12,34 @@
                             <h1 class="fs-2hx fw-bold mb-5">Select Event</h1>
 
                             <div class="text-gray-600 fw-semibold fs-5">
-                                Lorem Ipsum
+                                Find the vote you want to make
                             </div>
                         </div>
 
                         <div class="row g-5 g-xl-8">
-                            <div class="col-xl-4">
+                            @foreach ($events as $key => $event)
+                                <div class="col-xl-4">
+                                    <div
+                                        class="card bgi-no-repeat bgi-position-y-top bgi-position-x-end statistics-widget-1 card-xl-stretch mb-xl-8">
+                                        <div class="card-body">
+                                            <a href="{{ route('app.voting.index', $event->id) }}"
+                                                class="card-title fw-bold text-muted text-hover-primary fs-4">
+                                                {{ $event->title }}
+                                            </a>
 
-                                <div
-                                    class="card bgi-no-repeat bgi-position-y-top bgi-position-x-end statistics-widget-1 card-xl-stretch mb-xl-8">
-                                    <div class="card-body">
-                                        <a href="#" class="card-title fw-bold text-muted text-hover-primary fs-4">Pemilihan Ketua OSIS</a>
+                                            <div class="fw-bold text-primary my-6">
+                                                {{ $event->start_time }} -
+                                                {{ $event->end_time }}
+                                            </div>
 
-                                        <div class="fw-bold text-primary my-6">3:30PM - 4:20PM</div>
-
-                                        <p class="text-gray-900-75 fw-semibold fs-5 m-0">
-                                            Create a headline that is informative<br />
-                                            and will capture readers
-                                        </p>
+                                            <p class="text-gray-900-75 fw-semibold fs-5 m-0">
+                                                Create a headline that is informative<br />
+                                                and will capture readers
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
+                            @endforeach
                         </div>
 
                     </div>

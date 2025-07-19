@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
-use App\Models\Candidate;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class EventAdminController extends Controller

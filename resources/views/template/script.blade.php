@@ -20,3 +20,9 @@
 <script src="{{ asset('assets/js/custom/apps/ecommerce/customers/listing/add.js') }}"></script>
 <script src="{{ asset('assets/js/custom/apps/ecommerce/customers/listing/export.js') }}"></script>
 <script src="{{ asset('assets/js/custom/authentication/sign-in/general.js') }}"></script>
+
+<script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+<script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
+<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
+<script src="{{ asset('assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
+<script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>

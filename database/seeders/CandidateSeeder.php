@@ -20,7 +20,7 @@ class CandidateSeeder extends Seeder
                 'id' => Str::uuid(),
                 'event_id' => $event[array_rand($event)],
                 'name' => $faker->name(),
-                'description' => $faker->name(),
+                'description' => "Mewujudkan organisasi mahasiswa yang aktif, inklusif, dan progresif sebagai wadah pengembangan potensi dan suara mahasiswa yang berdampak nyata di dalam dan luar kampus.",
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

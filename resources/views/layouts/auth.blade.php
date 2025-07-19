@@ -51,8 +51,7 @@
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">OVS App</h1>
 
                     <di class="text-gray-600 fs-base text-center fw-semibold">
-                        Unlock your creativity with <span class="opacity-75-hover text-primary me-1">OVS App’s</span>
-                        diverse design assets <br> that make content creation effortless.
+                        Your one vote is very valuable
                     </di>
                 </div>
             </div>

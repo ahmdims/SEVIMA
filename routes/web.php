@@ -7,6 +7,8 @@ use App\Http\Controllers\App\CandidateAppController;
 use App\Http\Controllers\App\DashboardAppController;
 use App\Http\Controllers\App\EventAppController;
 use App\Http\Controllers\App\LandingdAppController;
+use App\Http\Controllers\App\VotingAppController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,12 +22,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [LandingdAppController::class, 'index'])->name('landing.index');
+
+// Route::get('/', [LandingdAppController::class, 'index'])->name('landing.index');
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardAppController::class, 'index'])->name('app.dashboard.index');
     Route::get('/event', [EventAppController::class, 'index'])->name('app.event.index');
-    Route::get('/candidate', [CandidateAppController::class, 'index'])->name('app.candidate.index');
+    Route::get('/event/{id}/voting', [EventAppController::class, 'voting'])->name('app.voting.index');
+    Route::get('/event/voting/success', [EventAppController::class, 'success'])->name('app.success.index');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
