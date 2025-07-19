@@ -1,96 +1,48 @@
+<?php $flashing = false; ?>
 @if (session('success'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                text: "{{ session('success') }}",
-                icon: "success",
-                buttonsStyling: !1,
-                confirmButtonText: "Oke, mengerti!",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                },
-                timer: 2000,
-                timerProgressBar: true,
-                customClass: {
-                    confirmButton: "btn fw-bold btn-primary"
-                }
-            });
-        });
-    </script>
+    <?php $flashing = true; ?>
+    <div class="alert alert-success alert-dismissible fade show position-fixed p-3 d-flex align-items-center"
+        style="bottom: 1rem; right: 2rem; z-index: 100;" role="alert" id="alert-success">
+        {{ session('success') }}
+    </div>
 @elseif (session('warning'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                text: "{{ session('warning') }}",
-                icon: "warning",
-                buttonsStyling: !1,
-                confirmButtonText: "Oke, mengerti!",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                },
-                timer: 2000,
-                timerProgressBar: true,
-                customClass: {
-                    confirmButton: "btn fw-bold btn-primary"
-                }
-            });
-        });
-    </script>
+    <?php $flashing = true; ?>
+    <div class="alert alert-warning alert-dismissible fade show position-fixed p-3 d-flex align-items-center"
+        style="bottom: 1rem; right: 2rem; z-index: 100;" role="alert" id="alert-warning">
+        {{ session('warning') }}
+    </div>
 @elseif (session('error'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                text: "{{ session('error') }}",
-                icon: "error",
-                buttonsStyling: !1,
-                confirmButtonText: "Oke, mengerti!",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                },
-                timer: 2000,
-                timerProgressBar: true,
-                customClass: {
-                    confirmButton: "btn fw-bold btn-primary"
-                }
-            });
-        });
-    </script>
+    <?php $flashing = true; ?>
+    <div class="alert alert-danger alert-dismissible fade show position-fixed p-3 d-flex align-items-center"
+        style="bottom: 1rem; right: 2rem; z-index: 100;" role="alert" id="alert-danger">
+        {{ session('error') }}
+    </div>
 @elseif (session('status'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                text: "{{ session('status') }}",
-                icon: "info",
-                buttonsStyling: !1,
-                confirmButtonText: "Oke, mengerti!",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                },
-                timer: 2000,
-                timerProgressBar: true,
-                customClass: {
-                    confirmButton: "btn fw-bold btn-primary"
-                }
-            });
-        });
-    </script>
+    <?php $flashing = true; ?>
+    <div class="alert alert-info alert-dismissible fade show position-fixed p-3 d-flex align-items-center"
+        style="bottom: 1rem; right: 2rem; z-index: 100;" role="alert" id="alert-info">
+        {{ session('status') }}
+    </div>
 @elseif ($errors->any())
+    <?php $flashing = true; ?>
+    <div class="alert alert-danger alert-dismissible fade show position-fixed p-3 d-flex align-items-center"
+        style="bottom: 1rem; right: 2rem; z-index: 100;" role="alert" id="alert-error">
+        <ul class="ms-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if ($flashing)
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                html: `{!! implode('<br>', $errors->all()) !!}`,
-                icon: "error",
-                buttonsStyling: !1,
-                confirmButtonText: "Oke, mengerti!",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                },
-                timer: 2000,
-                timerProgressBar: true,
-                customClass: {
-                    confirmButton: "btn fw-bold btn-primary"
-                }
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const alertElement = document.querySelector('div.alert');
+                alertElement.classList.remove('show');
+                alertElement.classList.add('fade');
+            }, 5000);
         });
     </script>
 @endif

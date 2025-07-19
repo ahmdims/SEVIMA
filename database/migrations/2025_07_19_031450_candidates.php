@@ -13,12 +13,9 @@ return new class extends Migration {
         Schema::create('candidates', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('event_id');
-            $table->string('title');
             $table->string('name');
-            $table->string('photo_url');
+            $table->string('photo_url')->nullable();
             $table->text('description');
-            $table->datetime('start_time');
-            $table->datetime('end_time');
             $table->timestamps();
 
             $table->foreign('event_id')->references('id')->on('events');

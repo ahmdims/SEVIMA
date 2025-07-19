@@ -1,26 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
-<head>
-    <title>@yield('title') - Eduno</title>
-    <meta charset="utf-8" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="assets/media/logos/favicon.svg" />
+@include('template.head')
 
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.svg') }}" />
+@include('template.flasher')
 
-    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-</head>
-
-<body id="kt_body" class="app-blank">
-
+<body id="kt_body" class="app-blank bgi-size-cover bgi-attachment-fixed bgi-position-center">
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -44,20 +29,40 @@
         }
     </script>
 
-    @yield('content')
+    <div class="d-flex flex-column flex-root" id="kt_app_root">
+        <style>
+            body {
+                background-image: url("{{ asset('assets/media/auth/bg10.jpg') }}");
+            }
 
-    <script>
-        var hostUrl = "assets/index.html";
-    </script>
+            [data-bs-theme="dark"] body {
+                background-image: url("{{ asset('assets/media/auth/bg10-dark.jpg') }}");
+            }
+        </style>
 
-    <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+        <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+            <div class="d-flex flex-lg-row-fluid">
+                <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
+                    <img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
+                        src="{{ asset('assets/media/auth/agency.png') }}" alt="" />
+                    <img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
+                        src="{{ asset('assets/media/auth/agency-dark.png') }}" alt="" />
 
-    <script src="{{ asset('assets/js/custom/apps/authentication/sign-up/general.js') }}"></script>
+                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">OVS App</h1>
 
-    <script src="{{ asset('assets/js/custom/apps/authentication/sign-in/general.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/authentication/sign-in/i18n.js') }}"></script>
+                    <di class="text-gray-600 fs-base text-center fw-semibold">
+                        Unlock your creativity with <span class="opacity-75-hover text-primary me-1">OVS App’s</span>
+                        diverse design assets <br> that make content creation effortless.
+                    </di>
+                </div>
+            </div>
 
+            @yield('content')
+
+        </div>
+    </div>
+
+    @include('template.script')
 </body>
 
 </html>

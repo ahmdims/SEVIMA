@@ -1,242 +1,120 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', 'Sign In')
 
 @section('content')
+    <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
+        <div class="bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10">
+            <div class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-md-400px">
+                <div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
+                    <form class="form w-100" method="POST" action="{{ route('register') }}">
+                        @csrf
 
-    <div class="d-flex flex-column flex-root" id="kt_app_root">
-        <!--begin::Page bg image-->
-        <style>
-            body {
-                background-image: url('assets/media/auth/bg10.jpeg');
-            }
+                        <div class="text-center mb-11">
+                            <h1 class="text-gray-900 fw-bolder mb-3">Sign Up</h1>
+                            <div class="text-gray-500 fw-semibold fs-6">Sign up today and bring your ideas to life</div>
+                        </div>
 
-            [data-bs-theme="dark"] body {
-                background-image: url('assets/media/auth/bg10-dark.jpeg');
-            }
-        </style>
-        <!--end::Page bg image-->
-        <!--begin::Authentication - Sign-in -->
-        <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <!--begin::Aside-->
-            <div class="d-flex flex-lg-row-fluid">
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
-                    <!--begin::Image-->
-                    <img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
-                        src="assets/media/auth/agency.png" alt="" />
-                    <img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
-                        src="assets/media/auth/agency-dark.png" alt="" />
-                    <!--end::Image-->
-                    <!--begin::Title-->
-                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
-                    <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person
-                        they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                    <!--end::Text-->
-                </div>
-                <!--end::Content-->
-            </div>
-            <!--begin::Aside-->
-            <!--begin::Body-->
-            <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
-                <!--begin::Wrapper-->
-                <div class="bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10">
-                    <!--begin::Content-->
-                    <div class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-md-400px">
-                        <!--begin::Wrapper-->
-                        <div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
-                            <!--begin::Form-->
-                            <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"
-                                data-kt-redirect-url="../../demo55/dist/index.html" action="#">
-                                <!--begin::Heading-->
-                                <div class="text-center mb-11">
-                                    <!--begin::Title-->
-                                    <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
-                                    <!--end::Title-->
-                                    <!--begin::Subtitle-->
-                                    <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
-                                    <!--end::Subtitle=-->
-                                </div>
-                                <!--begin::Heading-->
-                                <!--begin::Login options-->
-                                <div class="row g-3 mb-9">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <!--begin::Google link=-->
-                                        <a href="#"
-                                            class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-                                            <img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg"
-                                                class="h-15px me-3" />Sign in with Google</a>
-                                        <!--end::Google link=-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <!--begin::Google link=-->
-                                        <a href="#"
-                                            class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-                                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg"
-                                                class="theme-light-show h-15px me-3" />
-                                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black-dark.svg"
-                                                class="theme-dark-show h-15px me-3" />Sign in with Apple</a>
-                                        <!--end::Google link=-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Login options-->
-                                <!--begin::Separator-->
-                                <div class="separator separator-content my-14">
-                                    <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
-                                </div>
-                                <!--end::Separator-->
-                                <!--begin::Input group=-->
-                                <div class="fv-row mb-8">
-                                    <!--begin::Email-->
-                                    <input type="text" placeholder="Email" name="email" autocomplete="off"
-                                        class="form-control bg-transparent" />
-                                    <!--end::Email-->
-                                </div>
-                                <!--end::Input group=-->
-                                <div class="fv-row mb-3">
-                                    <!--begin::Password-->
-                                    <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                        class="form-control bg-transparent" />
-                                    <!--end::Password-->
-                                </div>
-                                <!--end::Input group=-->
-                                <!--begin::Wrapper-->
-                                <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                                    <div></div>
-                                    <!--begin::Link-->
-                                    <a href="../../demo55/dist/authentication/layouts/overlay/reset-password.html"
-                                        class="link-primary">Forgot Password ?</a>
-                                    <!--end::Link-->
-                                </div>
-                                <!--end::Wrapper-->
-                                <!--begin::Submit button-->
-                                <div class="d-grid mb-10">
-                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
-                                        <!--begin::Indicator label-->
-                                        <span class="indicator-label">Sign In</span>
-                                        <!--end::Indicator label-->
-                                        <!--begin::Indicator progress-->
-                                        <span class="indicator-progress">Please wait...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        <!--end::Indicator progress-->
-                                    </button>
-                                </div>
-                                <!--end::Submit button-->
-                                <!--begin::Sign up-->
-                                <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
-                                    <a href="../../demo55/dist/authentication/layouts/overlay/sign-up.html"
-                                        class="link-primary">Sign up</a>
-                                </div>
-                                <!--end::Sign up-->
-                            </form>
-                            <!--end::Form-->
+                        <div class="fv-row mb-3">
+                            <label class="form-label fw-semibold fs-6 mb-2">Name</label>
+                            <input type="text" id="name" name="name" value="{{ old('name') }}"
+                                class="form-control form-control-solid" />
+                            @error('email')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <!--end::Wrapper-->
-                        <!--begin::Footer-->
-                        <div class="d-flex flex-stack">
-                            <!--begin::Languages-->
-                            <div class="me-10">
-                                <!--begin::Toggle-->
-                                <button
-                                    class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
-                                    data-kt-menu-offset="0px, 0px">
-                                    <img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3"
-                                        src="assets/media/flags/united-states.svg" alt="" />
-                                    <span data-kt-element="current-lang-name" class="me-1">English</span>
-                                    <i class="ki-outline ki-down fs-5 text-muted rotate-180 m-0"></i>
-                                </button>
-                                <!--end::Toggle-->
-                                <!--begin::Menu-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7"
-                                    data-kt-menu="true" id="kt_auth_lang_menu">
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link d-flex px-5" data-kt-lang="English">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img data-kt-element="lang-flag" class="rounded-1"
-                                                    src="assets/media/flags/united-states.svg" alt="" />
-                                            </span>
-                                            <span data-kt-element="lang-name">English</span>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link d-flex px-5" data-kt-lang="Spanish">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img data-kt-element="lang-flag" class="rounded-1"
-                                                    src="assets/media/flags/spain.svg" alt="" />
-                                            </span>
-                                            <span data-kt-element="lang-name">Spanish</span>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link d-flex px-5" data-kt-lang="German">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img data-kt-element="lang-flag" class="rounded-1"
-                                                    src="assets/media/flags/germany.svg" alt="" />
-                                            </span>
-                                            <span data-kt-element="lang-name">German</span>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link d-flex px-5" data-kt-lang="Japanese">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img data-kt-element="lang-flag" class="rounded-1"
-                                                    src="assets/media/flags/japan.svg" alt="" />
-                                            </span>
-                                            <span data-kt-element="lang-name">Japanese</span>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link d-flex px-5" data-kt-lang="French">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img data-kt-element="lang-flag" class="rounded-1"
-                                                    src="assets/media/flags/france.svg" alt="" />
-                                            </span>
-                                            <span data-kt-element="lang-name">French</span>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                </div>
-                                <!--end::Menu-->
-                            </div>
-                            <!--end::Languages-->
-                            <!--begin::Links-->
-                            <div class="d-flex fw-semibold text-primary fs-base gap-5">
-                                <a href="../../demo55/dist/pages/team.html" target="_blank">Terms</a>
-                                <a href="../../demo55/dist/pages/pricing/column.html" target="_blank">Plans</a>
-                                <a href="../../demo55/dist/pages/contact.html" target="_blank">Contact Us</a>
-                            </div>
-                            <!--end::Links-->
+
+                        <div class="fv-row mb-3">
+                            <label class="form-label fw-semibold fs-6 mb-2">Email</label>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                class="form-control form-control-solid" />
+                            @error('email')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <!--end::Footer-->
-                    </div>
-                    <!--end::Content-->
+
+                        <div class="fv-row mb-3">
+                            <label class="form-label fw-semibold fs-6 mb-2">NIK</label>
+                            <input type="text" id="nik" name="nik" value="{{ old('nik') }}"
+                                class="form-control form-control-solid" />
+                            @error('nik')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="fv-row mb-6" data-kt-password-meter="true">
+                            <label class="form-label fw-semibold fs-6 mb-2">Password</label>
+                            <div class="position-relative">
+                                <input type="password" id="password" name="password"
+                                    class="form-control form-control-lg form-control-solid" autocomplete="off" />
+
+                                <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                    data-kt-password-meter-control="visibility">
+                                    <i class="ki-duotone ki-eye-slash fs-1"><span class="path1"></span><span
+                                            class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                    <i class="ki-duotone ki-eye d-none fs-1"><span class="path1"></span><span
+                                            class="path2"></span><span class="path3"></span></i>
+                                </span>
+                            </div>
+                            @error('password')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+
+                            <div class="d-flex align-items-center mt-3" data-kt-password-meter-control="highlight">
+                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                            </div>
+
+                            <div class="text-muted mt-2">
+                                Use 8 or more characters with a mix of letters, numbers & symbols.
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-6" data-kt-password-meter="true">
+                            <label class="form-label fw-semibold fs-6 mb-2">Password Confirmation</label>
+                            <div class="position-relative">
+                                <input type="password" id="password_confirmation" name="password_confirmation"
+                                    class="form-control form-control-lg form-control-solid" autocomplete="new-password"
+                                    required />
+
+                                <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                    data-kt-password-meter-control="visibility">
+                                    <i class="ki-duotone ki-eye-slash fs-1"><span class="path1"></span><span
+                                            class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                    <i class="ki-duotone ki-eye d-none fs-1"><span class="path1"></span><span
+                                            class="path2"></span><span class="path3"></span></i>
+                                </span>
+                            </div>
+                            @error('password_confirmation')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="d-grid mb-10">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Sign Up</span>
+                            </button>
+                        </div>
+
+                        <div class="text-gray-500 text-center fw-semibold fs-6">
+                            Already registered?
+                            <a href="{{ route('login') }}" class="link-primary">
+                                Sign in
+                            </a>
+                        </div>
+                    </form>
                 </div>
-                <!--end::Wrapper-->
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex fw-semibold text-primary fs-base gap-5 ms-auto">
+                        <a href="#" target="_blank">Plans</a>
+                        <a href="#" target="_blank">FAQ</a>
+                    </div>
+                </div>
+
             </div>
-            <!--end::Body-->
         </div>
-        <!--end::Authentication - Sign-in-->
     </div>
-
 @endsection
