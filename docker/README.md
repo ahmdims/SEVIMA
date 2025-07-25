@@ -75,24 +75,20 @@ docker-compose up -d --build
 ### 4. Install Composer Dependencies
 
 ```bash
-docker exec -it <container_name> composer install
+docker exec -it sevima-app composer install
 ```
-
-> Replace `<container_name>` with the name of your Laravel app container (e.g., `app` or check using `docker ps`).
 
 ### 5. Generate Application Key
 
 ```bash
-docker exec -it <container_name> php artisan key:generate
+docker exec -it sevima-app php artisan key:generate
 ```
 
 ### 6. Run Database Migrations (Optional)
 
 ```bash
-docker exec -it <container_name> php artisan migrate
+docker exec -it sevima-app php artisan migrate
 ```
-
-> Ensure your `.env` file has the correct database settings pointing to the Docker database service (usually `DB_HOST=mysql`).
 
 ### 7. Access the Application
 
@@ -102,7 +98,17 @@ Open your browser and go to:
 http://localhost:8000
 ```
 
-> Change port if you configured a different one in `docker-compose.yml`.
+You can also access phpMyAdmin at:
+
+```
+http://localhost:8080
+```
+
+> Login using:
+>
+> -   Server: `mysql`
+> -   Username: `root`
+> -   Password: `secret`
 
 ### 8. Shut Down Docker Containers
 
@@ -114,13 +120,13 @@ docker-compose down
 
 ## Summary of Common Commands
 
-| Action                     | Command                                          |
-| -------------------------- | ------------------------------------------------ |
-| Start & build containers   | `docker-compose up -d --build`                   |
-| Install PHP dependencies   | `docker exec -it <app> composer install`         |
-| Generate Laravel key       | `docker exec -it <app> php artisan key:generate` |
-| Run database migrations    | `docker exec -it <app> php artisan migrate`      |
-| Stop and remove containers | `docker-compose down`                            |
+| Action                     | Command                                               |
+| -------------------------- | ----------------------------------------------------- |
+| Start & build containers   | `docker-compose up -d --build`                        |
+| Install PHP dependencies   | `docker exec -it sevima-app composer install`         |
+| Generate Laravel key       | `docker exec -it sevima-app php artisan key:generate` |
+| Run database migrations    | `docker exec -it sevima-app php artisan migrate`      |
+| Stop and remove containers | `docker-compose down`                                 |
 
 ## Notes
 

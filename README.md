@@ -58,7 +58,7 @@ DB_USERNAME=sevima_app
 DB_PASSWORD=secret
 ```
 
-## Docker Environment [detailed installation info using Docker](https://github.com/ahmdims/SEVIMA/blob/main/docker/README.md)
+## Docker Environment [detailed installation info using Docker](https://github.com/ahmdims/SEVIMA/tree/main/docker)
 
 ````dotenv
 DB_CONNECTION=mysql
