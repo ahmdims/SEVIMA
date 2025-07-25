@@ -5,7 +5,8 @@
 OVS App adalah aplikasi pemilihan umum
 
 ## Presentation
-[Presentation](https://#)
+
+[Presentation](https://www.canva.com/design/DAGtmR1ZOLs/W_68gOQav558RTy9TAK74A/edit?utm_content=DAGtmR1ZOLs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Installation
 
