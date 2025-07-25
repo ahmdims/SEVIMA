@@ -53,7 +53,12 @@ class EventAppController extends Controller
         }
 
         $candidates = $event->candidates;
-        return view('app.voting.index', compact('event', 'candidates'));
+
+        $hasVoted = Auth::check() && Vote::where('user_id', Auth::id())
+            ->where('event_id', $event->id)
+            ->exists();
+
+        return view('app.voting.index', compact('event', 'candidates', 'hasVoted'));
     }
 
     public function storeVote(Request $request)
@@ -79,7 +84,7 @@ class EventAppController extends Controller
             ->first();
 
         if ($existingVote) {
-            return redirect()->route('app.event.information', $event->id)->with('error', 'You have already voted in this event.');
+            return redirect()->route('app.event.information', $event->id)->with('error', 'Anda sudah pernah melakukan vote di event ini.');
         }
 
         Vote::create([
@@ -90,7 +95,7 @@ class EventAppController extends Controller
             'longitude' => $request->longitude ?? 0.0,
         ]);
 
-        return redirect()->route('app.success.index')->with('success', 'Your vote has been successfully recorded!');
+        return redirect()->route('app.event.information', $event->id)->with('success', 'Vote Anda berhasil direkam!');
     }
 
     public function success(Request $request)

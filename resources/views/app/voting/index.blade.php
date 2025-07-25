@@ -9,10 +9,10 @@
                 <div class="card-body p-lg-17">
                     <div class="d-flex flex-column">
                         <div class="mb-13 text-center">
-                            <h1 class="fs-2hx fw-bold mb-5">Select Your Candidate for {{ $event->title }}</h1>
+                            <h1 class="fs-2hx fw-bold mb-5">Pilih Kandidat Anda untuk {{ $event->title }}</h1>
 
                             <div class="text-gray-600 fw-semibold fs-5">
-                                Your one vote is very valuable
+                                Satu suara Anda sangat berarti
                             </div>
                         </div>
 
@@ -30,7 +30,8 @@
 
                                                 <div class="text-gray-600 fw-semibold mb-5">
                                                     <div class="symbol symbol-200px">
-                                                        <img src="{{ asset('assets/media/avatars/blank.png') }}" alt="" />
+                                                        <img src="{{ asset('assets/media/avatars/blank.png') }}" alt="" /> {{--
+                                                        Placeholder for candidate image --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -40,11 +41,15 @@
                                                     {{ $candidate->description }}
                                                 </p>
                                             </div>
+                                            {{-- Form for voting --}}
                                             <form action="{{ route('app.vote.store') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="event_id" value="{{ $event->id }}">
                                                 <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
-                                                <button type="submit" class="btn btn-sm btn-primary">Select</button>
+                                                <button type="submit" class="btn btn-sm btn-primary"
+                                                    {{ $hasVoted ? 'disabled' : '' }}>
+                                                    {{ $hasVoted ? 'Sudah pernah melakukan vote' : 'Pilih' }}
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

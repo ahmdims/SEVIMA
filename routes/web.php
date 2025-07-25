@@ -31,8 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/event/{id}/information', [EventAppController::class, 'information'])->name('app.event.information');
     Route::get('/event/{id}/voting', [EventAppController::class, 'voting'])->name('app.voting.index');
-    Route::post('/event/vote', [EventAppController::class, 'storeVote'])->name('app.vote.store'); // New route for storing votes
-    Route::get('/event/voting/success', [EventAppController::class, 'success'])->name('app.success.index');
+    Route::post('/event/vote', [EventAppController::class, 'storeVote'])->name('app.vote.store');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

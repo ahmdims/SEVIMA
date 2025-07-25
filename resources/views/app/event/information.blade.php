@@ -8,12 +8,13 @@
             <div class="card" id="kt_event_information">
                 <div class="card-body p-lg-17">
                     <div class="d-flex flex-column text-center">
+
                         <div class="mb-13">
                             <h1 class="fs-2hx fw-bold mb-5 text-gray-900">{{ $event->title }}</h1>
                             <div class="text-gray-600 fw-semibold fs-5">
-                                <span class="badge badge-light-primary fs-7 fw-bold me-2">Start:
+                                <span class="badge badge-light-primary fs-7 fw-bold me-2">Mulai:
                                     {{ \Carbon\Carbon::parse($event->start_time)->format('M d, Y H:i') }}</span>
-                                <span class="badge badge-light-danger fs-7 fw-bold">End:
+                                <span class="badge badge-light-danger fs-7 fw-bold">Berakhir:
                                     {{ \Carbon\Carbon::parse($event->end_time)->format('M d, Y H:i') }}</span>
                             </div>
                         </div>
@@ -31,14 +32,14 @@
                         </div>
 
                         <div class="mb-10 text-start">
-                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Description</h2>
+                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Deskripsi</h2>
                             <p class="text-gray-700 fs-5">
                                 {{ $event->description }}
                             </p>
                         </div>
 
                         <div class="mb-10">
-                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Candidates</h2>
+                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Kandidat</h2>
                             @if ($candidates->count() > 0)
                                 <div class="row g-5 g-xl-8">
                                     @foreach ($candidates as $candidate)
@@ -62,32 +63,27 @@
                                     @endforeach
                                 </div>
                             @else
-                                <p class="text-gray-500">No candidates available for this event yet.</p>
+                                <p class="text-gray-500">Belum ada kandidat tersedia untuk event ini.</p>
                             @endif
                         </div>
 
                         <div class="mb-10">
-                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Current Vote Distribution (Example Chart
-                                Placeholder)</h2>
+                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Distribusi Suara Saat Ini (Contoh Placeholder
+                                Chart)</h2>
                             <div class="chart-placeholder bg-light bg-opacity-75 p-5 rounded"
                                 style="height: 300px; display: flex; justify-content: center; align-items: center; border: 1px dashed #ccc;">
-                                <p class="text-muted fs-6">Chart Integration Goes Here (e.g., using Chart.js with candidate
-                                    vote
-                                    data)</p>
+                                <p class="text-muted fs-6">Integrasi Chart Akan Ditempatkan Di Sini (misalnya, menggunakan
+                                    Chart.js dengan data suara kandidat)</p>
                             </div>
                         </div>
 
                         <div class="mt-10">
                             @if ($canVote)
                                 <a href="{{ route('app.voting.index', $event->id) }}"
-                                    class="btn btn-lg btn-primary fw-bolder">Proceed to
-                                    Voting</a>
+                                    class="btn btn-lg btn-primary fw-bolder">Lanjutkan ke Voting</a>
                             @else
-                                <button class="btn btn-lg btn-secondary fw-bolder" disabled>Voting is Not Open Yet or Has
-                                    Ended</button>
-                                @if(session('error'))
-                                    <div class="alert alert-danger mt-3">{{ session('error') }}</div>
-                                @endif
+                                <button class="btn btn-lg btn-secondary fw-bolder" disabled>Voting Belum Dibuka atau Sudah
+                                    Berakhir</button>
                             @endif
                         </div>
                     </div>
