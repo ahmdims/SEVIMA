@@ -1,13 +1,11 @@
-version: '3.8'
-
 services:
   sevima:
     build:
-      context: ./
-      dockerfile: ./docker/Dockerfile
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: sevima-app
     volumes:
-      - ./sevima:/var/www
+      - .:/var/www
     depends_on:
       - mysql
     networks:
@@ -17,8 +15,8 @@ services:
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_DATABASE: sevima_app
-      DB_USERNAME: sevima_db
+      DB_DATABASE: sevima_db
+      DB_USERNAME: sevima_app
       DB_PASSWORD: secret
 
   mysql:
@@ -28,10 +26,10 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: sevima_app
-      MYSQL_USER: sevima_db
+      MYSQL_DATABASE: sevima_db
+      MYSQL_USER: sevima_app
+      MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_PASSWORD: secret 
     volumes:
       - mysql_data:/var/lib/mysql
     networks:

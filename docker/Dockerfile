@@ -9,9 +9,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     default-mysql-client \
+    libzip-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-install zip
 
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
