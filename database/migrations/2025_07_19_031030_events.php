@@ -13,10 +13,13 @@ return new class extends Migration {
         Schema::create('events', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
+            $table->string('banner_image')->nullable();
             $table->text('description');
             $table->datetime('start_time');
             $table->datetime('end_time');
-            $table->tinyInteger('status')->default(0); //on=1, off=0
+            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('visibility')->default(0);
             $table->timestamps();
         });
     }

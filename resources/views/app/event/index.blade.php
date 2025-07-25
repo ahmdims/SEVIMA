@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Candidate')
+@section('title', 'Events')
 
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -22,19 +22,20 @@
                                     <div
                                         class="card bgi-no-repeat bgi-position-y-top bgi-position-x-end statistics-widget-1 card-xl-stretch mb-xl-8">
                                         <div class="card-body">
-                                            <a href="{{ route('app.voting.index', $event->id) }}"
+                                            {{-- Link to the new information page --}}
+                                            <a href="{{ route('app.event.information', $event->id) }}"
                                                 class="card-title fw-bold text-muted text-hover-primary fs-4">
                                                 {{ $event->title }}
                                             </a>
 
                                             <div class="fw-bold text-primary my-6">
-                                                {{ $event->start_time }} -
-                                                {{ $event->end_time }}
+                                                {{ \Carbon\Carbon::parse($event->start_time)->format('M d, Y H:i') }} -
+                                                {{ \Carbon\Carbon::parse($event->end_time)->format('M d, Y H:i') }}
                                             </div>
 
                                             <p class="text-gray-900-75 fw-semibold fs-5 m-0">
-                                                Create a headline that is informative<br />
-                                                and will capture readers
+                                                {{ \Illuminate\Support\Str::limit($event->description, 100) }} {{-- Display a
+                                                snippet of description --}}
                                             </p>
                                         </div>
                                     </div>

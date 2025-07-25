@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventAdminController extends Controller
 {
@@ -14,53 +15,98 @@ class EventAdminController extends Controller
         return view('admin.event.index', compact('events'));
     }
 
-    public function show($id)
+    public function create()
     {
-        $event = event::findOrFail($id);
-        return response()->json($event);
+        return view('admin.event.create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'start_time' => 'required|string',
-            'end_time' => 'required|string',
-            'status' => 1,
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+            'is_active' => 'boolean',
+            'visibility' => 'boolean',
         ]);
 
-        event::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'status' => $request->status,
-        ]);
+        $event = new Event();
+        $event->title = $validated['title'];
+        $event->description = $validated['description'];
+        $event->start_time = $validated['start_time'];
+        $event->end_time = $validated['end_time'];
+        $event->is_active = $request->has('is_active') ? 1 : 0;
+        $event->visibility = $request->has('visibility') ? 1 : 0;
 
-        return redirect()->back()->with('success', 'event created successfully!');
+        if ($request->hasFile('banner_image')) {
+            $path = $request->file('banner_image')->store('public/event_banners');
+            $event->banner_image = str_replace('public/', '', $path);
+        }
+
+        $event->save();
+
+        return redirect()->route('admin.event.index')->with('success', 'Event created successfully.');
+    }
+
+    public function show($id)
+    {
+        $event = Event::where('id', $id)->firstOrFail();
+        return view('admin.event.update', compact('event'));
+    }
+
+    public function edit($id)
+    {
+        $event = Event::where('id', $id)->firstOrFail();
+        return view('admin.event.edit', compact('event'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string',
+        $event = Event::where('id', $id)->firstOrFail();
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'start_time' => 'required|string',
-            'end_time' => 'required|string',
-            'status' => 'required|string',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+            'is_active' => 'boolean',
+            'visibility' => 'boolean',
         ]);
 
-        $event = event::findOrFail($id);
+        $event->title = $validated['title'];
+        $event->description = $validated['description'];
+        $event->start_time = $validated['start_time'];
+        $event->end_time = $validated['end_time'];
+        $event->is_active = $request->has('is_active') ? 1 : 0;
+        $event->visibility = $request->has('visibility') ? 1 : 0;
 
-        $event->name = $request->input('name', $event->name);
-        $event->description = $request->input('description', $event->description);
-        $event->start_time = $request->input('start_time', $event->start_time);
-        $event->end_time = $request->input('end_time', $event->end_time);
-        $event->status = $request->input('status', $event->status);
+        if ($request->hasFile('banner_image')) {
+            if ($event->banner_image && Storage::disk('public')->exists($event->banner_image)) {
+                Storage::disk('public')->delete($event->banner_image);
+            }
+            $path = $request->file('banner_image')->store('public/event_banners');
+            $event->banner_image = str_replace('public/', '', $path);
+        }
+
         $event->save();
 
-        return redirect()->back()->with('success', 'event updated successfully!');
+        return redirect()->route('admin.event.index')->with('success', 'Event updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $event = Event::where('id', $id)->firstOrFail();
+
+        if ($event->banner_image && Storage::disk('public')->exists($event->banner_image)) {
+            Storage::disk('public')->delete($event->banner_image);
+        }
+
+        $event->delete();
+
+        return redirect()->route('admin.event.index')->with('success', 'Event deleted successfully.');
     }
 
     public function setup($id)
@@ -68,13 +114,5 @@ class EventAdminController extends Controller
         $event = Event::where('id', $id)->firstOrFail();
         $candidates = $event->candidates;
         return view('admin.candidate.index', compact('event', 'candidates'));
-    }
-
-    public function destroy($id)
-    {
-        $event = event::findOrFail($id);
-        $event->delete();
-
-        return redirect()->back()->with('success', 'event deleted successfully!');
     }
 }

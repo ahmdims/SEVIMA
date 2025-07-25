@@ -23,7 +23,12 @@ class Event extends Model
         'id',
     ];
 
-    public function candidates()
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
+    public function candidates(): HasMany
     {
         return $this->hasMany(Candidate::class);
     }

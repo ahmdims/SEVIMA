@@ -23,8 +23,8 @@ class Candidate extends Model
         'id',
     ];
 
-    public function assets(): HasMany
+    public function votes(): HasMany
     {
-        return $this->hasMany(Event::class, 'events_id');
+        return $this->hasMany(Vote::class, 'candidate_id');
     }
 }

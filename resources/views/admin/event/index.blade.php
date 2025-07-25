@@ -44,9 +44,9 @@
                             </div>
 
                             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                                <a class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                                    data-bs-target="#modal_create">
-                                    Add @yield('title')</a>
+                                <a href="{{ route('admin.event.create') }}" class="btn btn-primary er fs-6 px-8 py-4">
+                                    Add @yield('title')
+                                </a>
                             </div>
                         </div>
 
@@ -57,9 +57,12 @@
                                     <tr class="text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                                         <th class="min-w-50px text-center">No</th>
                                         <th class="text-start min-w-250px">Title</th>
-                                        <th class="text-start min-w-75px">Start Time</th>
-                                        <th class="text-start min-w-75px">End Time</th>
-                                        <th class="text-start min-w-75px">Status</th>
+                                        <th class="text-start min-w-100px">Start Time</th>
+                                        <th class="text-start min-w-100px">End Time</th>
+                                        <th class="text-start min-w-75px">Active</th> {{-- Changed from Status to Active
+                                        --}}
+                                        <th class="text-start min-w-75px">Visibility</th> {{-- New column for visibility
+                                        --}}
                                         <th class="text-end min-w-70px">Action</th>
                                     </tr>
                                 </thead>
@@ -74,15 +77,27 @@
                                             </td>
 
                                             <td class="text-start pe-0">
-                                                <span class="fw-bold">{{ $event->start_time }}</span>
+                                                <span class="fw-bold">{{ $event->start_time->format('d M Y, H:i') }}</span>
                                             </td>
 
                                             <td class="text-start pe-0">
-                                                <span class="fw-bold">{{ $event->end_time }}</span>
+                                                <span class="fw-bold">{{ $event->end_time->format('d M Y, H:i') }}</span>
                                             </td>
 
                                             <td class="text-start pe-0">
-                                                <span class="fw-bold">{{ $event->status }}</span>
+                                                @if ($event->is_active == 1)
+                                                    <span class="badge badge-light-success">Active</span>
+                                                @else
+                                                    <span class="badge badge-light-danger">Inactive</span>
+                                                @endif
+                                            </td>
+
+                                            <td class="text-start pe-0">
+                                                @if ($event->visibility == 1)
+                                                    <span class="badge badge-light-primary">Public</span>
+                                                @else
+                                                    <span class="badge badge-light-secondary">Private</span>
+                                                @endif
                                             </td>
 
                                             <td class="text-end">
@@ -96,9 +111,8 @@
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                                     data-kt-menu="true">
                                                     <div class="menu-item px-3">
-                                                        <a class="menu-link px-3" data-bs-toggle="modal"
-                                                            data-bs-target="#modal_edit-{{ $event->id }}"
-                                                            data-id="{{ $event->id }}">Edit</a>
+                                                        <a href="{{ route('admin.event.show', $event->id) }}"
+                                                            class="menu-link px-3">Edit</a>
                                                     </div>
 
                                                     <div class="menu-item px-3">
@@ -109,9 +123,14 @@
                                                     </div>
 
                                                     <div class="menu-item px-3">
-                                                        <a class="menu-link px-3" data-bs-toggle="modal"
-                                                            data-bs-target="#modal_delete-{{ $event->id }}"
-                                                            data-id="{{ $event->id }}">Delete</a>
+                                                        <a href="#" class="menu-link px-3"
+                                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this event?')) { document.getElementById('delete-event-{{ $event->id }}').submit(); }">Delete</a>
+                                                        <form id="delete-event-{{ $event->id }}"
+                                                            action="{{ route('admin.event.destroy', $event->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </td>
@@ -126,12 +145,4 @@
             </div>
         </div>
     </div>
-
-    @include('admin.event.create')
-
-    @foreach ($events as $event)
-        @include('admin.event.update', ['events_data' => $event])
-        @include('admin.event.delete', ['events_data' => $event])
-    @endforeach
-
 @endsection
