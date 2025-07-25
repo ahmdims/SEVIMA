@@ -9,47 +9,82 @@
                 <div class="card-body p-lg-17">
                     <div class="d-flex flex-column text-center">
                         <div class="mb-13">
-                            <h1 class="fs-2hx fw-bold mb-5">{{ $event->title }}</h1>
+                            <h1 class="fs-2hx fw-bold mb-5 text-gray-900">{{ $event->title }}</h1>
                             <div class="text-gray-600 fw-semibold fs-5">
-                                {{ \Carbon\Carbon::parse($event->start_time)->format('M d, Y H:i') }} -
-                                {{ \Carbon\Carbon::parse($event->end_time)->format('M d, Y H:i') }}
+                                <span class="badge badge-light-primary fs-7 fw-bold me-2">Start:
+                                    {{ \Carbon\Carbon::parse($event->start_time)->format('M d, Y H:i') }}</span>
+                                <span class="badge badge-light-danger fs-7 fw-bold">End:
+                                    {{ \Carbon\Carbon::parse($event->end_time)->format('M d, Y H:i') }}</span>
                             </div>
                         </div>
 
-                        <div class="mb-10">
+                        <div class="mb-10 text-center">
                             @if($event->banner_image)
                                 <img src="{{ asset('storage/' . $event->banner_image) }}" alt="Event Banner"
-                                    class="img-fluid rounded" style="max-width: 800px; height: auto;">
+                                    class="img-fluid rounded shadow-sm"
+                                    style="max-width: 800px; height: auto; object-fit: cover;">
                             @else
                                 <img src="{{ asset('assets/media/misc/infography.svg') }}" alt="Default Event Banner"
-                                    class="img-fluid rounded" style="max-width: 800px; height: auto;"> {{-- Placeholder image
-                                --}}
+                                    class="img-fluid rounded shadow-sm"
+                                    style="max-width: 800px; height: auto; object-fit: cover;">
                             @endif
                         </div>
 
                         <div class="mb-10 text-start">
-                            <h2 class="fs-3hx fw-bold mb-5">Description</h2>
-                            <p class="text-gray-900-75 fs-5">
+                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Description</h2>
+                            <p class="text-gray-700 fs-5">
                                 {{ $event->description }}
                             </p>
                         </div>
 
-                        {{-- Placeholder for chart. You would integrate a charting library here (e.g., Chart.js) --}}
                         <div class="mb-10">
-                            <h2 class="fs-3hx fw-bold mb-5">Current Vote Distribution (Example Chart Placeholder)</h2>
-                            <div class="chart-placeholder"
-                                style="height: 300px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
-                                <p class="text-muted">Chart Integration Goes Here (e.g., using Chart.js with candidate vote
+                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Candidates</h2>
+                            @if ($candidates->count() > 0)
+                                <div class="row g-5 g-xl-8">
+                                    @foreach ($candidates as $candidate)
+                                        <div class="col-xl-4">
+                                            <div class="card card-xl-stretch mb-xl-8">
+                                                <div class="card-body d-flex flex-column flex-center text-center">
+                                                    <div class="symbol symbol-100px symbol-circle mb-5">
+                                                        <img src="{{ asset('assets/media/avatars/blank.png') }}"
+                                                            alt="Candidate Photo" />
+                                                    </div>
+                                                    <a href="#"
+                                                        class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">{{ $candidate->name }}</a>
+                                                    <div class="mb-9">
+                                                        <div class="fw-semibold text-gray-600">
+                                                            {{ Str::limit($candidate->description, 100) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-gray-500">No candidates available for this event yet.</p>
+                            @endif
+                        </div>
+
+                        <div class="mb-10">
+                            <h2 class="fs-3hx fw-bold mb-5 text-gray-800">Current Vote Distribution (Example Chart
+                                Placeholder)</h2>
+                            <div class="chart-placeholder bg-light bg-opacity-75 p-5 rounded"
+                                style="height: 300px; display: flex; justify-content: center; align-items: center; border: 1px dashed #ccc;">
+                                <p class="text-muted fs-6">Chart Integration Goes Here (e.g., using Chart.js with candidate
+                                    vote
                                     data)</p>
                             </div>
                         </div>
 
                         <div class="mt-10">
                             @if ($canVote)
-                                <a href="{{ route('app.voting.index', $event->id) }}" class="btn btn-lg btn-primary">Proceed to
+                                <a href="{{ route('app.voting.index', $event->id) }}"
+                                    class="btn btn-lg btn-primary fw-bolder">Proceed to
                                     Voting</a>
                             @else
-                                <button class="btn btn-lg btn-secondary" disabled>Voting is Not Open Yet or Has Ended</button>
+                                <button class="btn btn-lg btn-secondary fw-bolder" disabled>Voting is Not Open Yet or Has
+                                    Ended</button>
                                 @if(session('error'))
                                     <div class="alert alert-danger mt-3">{{ session('error') }}</div>
                                 @endif

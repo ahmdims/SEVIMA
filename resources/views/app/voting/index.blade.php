@@ -30,8 +30,7 @@
 
                                                 <div class="text-gray-600 fw-semibold mb-5">
                                                     <div class="symbol symbol-200px">
-                                                        <img src="{{ asset('assets/media/avatars/blank.png') }}" alt="" /> {{--
-                                                        Placeholder for candidate image --}}
+                                                        <img src="{{ asset('assets/media/avatars/blank.png') }}" alt="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -41,8 +40,12 @@
                                                     {{ $candidate->description }}
                                                 </p>
                                             </div>
-                                            {{-- Assuming you'll have a form submission or AJAX for voting --}}
-                                            <a href="{{ route('app.success.index') }}" class="btn btn-sm btn-primary">Select</a>
+                                            <form action="{{ route('app.vote.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                                <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
+                                                <button type="submit" class="btn btn-sm btn-primary">Select</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
