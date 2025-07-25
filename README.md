@@ -47,7 +47,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Docker Environment
+Docker Environment [detailed installation info using Docker](https://github.com/ahmdims/SEVIMA/tree/main/docker)
 
 ```dotenv
 DB_CONNECTION=mysql
@@ -58,21 +58,11 @@ DB_USERNAME=sevima_app
 DB_PASSWORD=secret
 ```
 
-## Docker Environment [detailed installation info using Docker](https://github.com/ahmdims/SEVIMA/tree/main/docker)
-
-````dotenv
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=sevima_db
-DB_USERNAME=sevima_app
-DB_PASSWORD=secret
-
 ### Step 5: Generate Application Key
 
 ```bash
 php artisan key:generate
-````
+```
 
 ### Step 6: Run Database Migrations
 
